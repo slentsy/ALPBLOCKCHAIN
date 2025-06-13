@@ -70,7 +70,7 @@ contract PetCertificate {
     }
 
     function addAchievement(uint _id, string memory _ipfsHash, string memory _description) public {
-        require(msg.sender == pets[_id].currentOwner, "Only pet owner can add achievement");
+        require(msg.sender == pets[_id].currentOwner || msg.sender == shelter, "Only pet owner or shelter can add achievement");
         pets[_id].achievements.push(Certificate({
             ipfsHash: _ipfsHash,
             description: _description,
@@ -78,6 +78,7 @@ contract PetCertificate {
         }));
         emit AchievementAdded(_id, _ipfsHash);
     }
+
 
 
     function requestAdoption(uint _id) public {
